@@ -66,7 +66,7 @@ class GPTParams:
         return self._head_size
 
 # data loading
-def get_batch(split, gpt_params):
+def get_batch(split, gpt_params, train_data, val_data):
     # generate a small batch of data of inputs x and targets y
     data = train_data if split == 'train' else val_data
     ix = torch.randint(len(data) - gpt_params.block_size, (gpt_params.batch_size,))
@@ -76,13 +76,13 @@ def get_batch(split, gpt_params):
     return x, y
 
 @torch.no_grad()
-def estimate_loss(gpt_params):
+def estimate_loss(gpt_params, model, train_data, val_data):
     out = {}
     model.eval()
     for split in ['train', 'val']:
         losses = torch.zeros(gpt_params.eval_iters)
         for k in range(gpt_params.eval_iters):
-            X, Y = get_batch(split)
+            X, Y = get_batch(split, gpt_params, train_data, val_data)
             logits, loss = model(X, Y)
             losses[k] = loss.item()
         out[split] = losses.mean()
@@ -255,7 +255,7 @@ def main():
     train_data = data[:n]
     val_data = data[n:]
             
-    gpt_params = GPTParms()
+    gpt_params = GPTParams()
     model = GPTLanguageModel(gpt_params, vocab_size)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     m = model.to(device)
@@ -263,17 +263,17 @@ def main():
     print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
     
     # create a PyTorch optimizer
-    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=gpt_params.learning_rate)
     
-    for iter in range(max_iters):
+    for iter in range(gpt_params.max_iters):
     
         # every once in a while evaluate the loss on train and val sets
-        if iter % eval_interval == 0 or iter == max_iters - 1:
-            losses = estimate_loss()
+        if iter % gpt_params.eval_interval == 0 or iter == gpt_params.max_iters - 1:
+            losses = estimate_loss(gpt_params, model, train_data, val_data)
             print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
             # Save the checkpoint
             checkpoint = {
-                'epoch': iter // eval_interval,
+                'epoch': iter // gpt_params.eval_interval,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict()
             }
@@ -281,7 +281,7 @@ def main():
     
     
         # sample a batch of data
-        xb, yb = get_batch('train')
+        xb, yb = get_batch('train', gpt_params, train_data, val_data)
     
         # evaluate the loss
         logits, loss = model(xb, yb)
