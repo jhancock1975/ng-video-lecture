@@ -291,7 +291,7 @@ def main():
     
     # generate from the model
     context = torch.zeros((1, 1), dtype=torch.long, device=device)
-    print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+    print(decode(m.generate(context, max_new_tokens=500, gpt_params=gpt_params)[0].tolist()))
     open('more.txt', 'w').write(decode(m.generate(context, max_new_tokens=10000, gpt_params=gpt_params)[0].tolist()))
 
 if __name__ == '__main__':
