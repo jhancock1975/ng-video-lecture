@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanogpt-lecture"
+version = "0.1.0"
+description = "Code from Neural Networks: Zero To Hero nanoGPT lecture"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Andrej Karpathy"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "torch>=1.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/karpathy/ng-video-lecture"
+Repository = "https://github.com/karpathy/ng-video-lecture"
+
+[project.scripts]
+nanogpt-train = "nanogpt_lecture.gpt:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nanogpt_lecture*"]
+exclude = ["nanogpt_lecture.run_trained_model", "nanogpt_lecture.train_gpt"]

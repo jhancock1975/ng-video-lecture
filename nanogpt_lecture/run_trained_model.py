@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import torch
-from gpt import GPTLanguageModel, GPTParams, process_input_file
+from .gpt import GPTLanguageModel, GPTParams, process_input_file
 
 def main():
     encode, decode, vocab_size = process_input_file('input.txt', return_data=False)
