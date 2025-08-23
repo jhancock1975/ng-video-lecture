@@ -1,3 +1,4 @@
+from nanogpt_lecture.gpt import *
 def main():
     
     torch.manual_seed(1337)
