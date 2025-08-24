@@ -2,14 +2,18 @@
 ## notes for installing vllm
 
 What has worked so far for installing vllm in Vast.ai, use A100 instance with 200 GB storage:
-install python3.11
+
 ```
 add-apt-repository -y ppa:deadsnakes/ppa
+# install python3.11
 sudo apt install python3.11 python3.11-venv python3.11-dev -y
+
+# install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 source $HOME/.local/bin/env
-uv venv ~/ven
+
 # make a virtual environment
+uv venv ~/ven
 
 uv pip install --upgrade pip setuptools wheel jq nvtop
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
