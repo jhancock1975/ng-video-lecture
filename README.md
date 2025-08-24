@@ -35,7 +35,7 @@ or
 It all worked.  I can expose the port by configuring docker options in the Vast.ai template for the instance running, but that port gets mapped to some random port.  
 In the Vast.ai console, I have to click on the IP address of the instance to get the port mapping. See the image below.
 
-<img width="437" height="429" alt="image" src="https://github.com/user-attachments/assets/f594862a-ebb0-42d0-b793-331c8c48f7b4" />
+<img width="437" height="429" alt="image" src="https://github.com/user-attachments/assets/9dc70053-9ad2-4c97-b775-5728df1d9ea8" />
 
 
 
