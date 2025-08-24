@@ -11,7 +11,7 @@ source $HOME/.local/bin/env
 uv venv ~/ven
 # make a virtual environment
 
-uv pip install --upgrade pip setuptools wheel jq
+uv pip install --upgrade pip setuptools wheel jq nvtop
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 # confirm pytorch
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available'; print('✓ PyTorch CUDA working')"
