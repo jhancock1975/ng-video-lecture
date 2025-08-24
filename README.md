@@ -24,6 +24,14 @@ uv pip install vllm
 # had to add --gpu-mem... to avoid cache memory insufficient error
 vllm serve openai/gpt-oss-120b --gpu-memory-utilization 0.95
 ```
+or
+```
+  vllm serve openai/gpt-oss-120b \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --api-key demo-key \
+  --gpu-memory-utilization 0.95
+```
 
 # nanogpt-lecture
 
