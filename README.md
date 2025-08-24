@@ -1,7 +1,7 @@
 # originally forked from Karpathy nanogpt-lecture
 ## notes for installing vllm
 
-What has worked so far for installing vllm in Vast.ai:
+What has worked so far for installing vllm in Vast.ai, use A100 instance with 200 GB storage:
 install python3.11
 ```
 add-apt-repository -y ppa:deadsnakes/ppa
@@ -21,7 +21,6 @@ uv pip install vllm
 vllm serve openai/gpt-oss-120b --gpu-memory-utilization 0.95
 ```
 
-ran out of disk on this one, though
 # nanogpt-lecture
 
 Code created in the [Neural Networks: Zero To Hero](https://karpathy.ai/zero-to-hero.html) video lecture series, specifically on the first lecture on nanoGPT. Publishing here as a Github repo so people can easily hack it, walk through the `git log` history of it, etc.
