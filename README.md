@@ -6,12 +6,16 @@ install python3.11
 ```
 add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt install python3.11 python3.11-venv python3.11-dev -y
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+uv venv ~/ven
 # make a virtual environment
-pip install --upgrade pip setuptools wheel
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+uv pip install --upgrade pip setuptools wheel
+uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 # confirm pytorch
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available'; print('✓ PyTorch CUDA working')"
-pip install vllm
+uv pip install vllm
 # downloads weights on first run and serves OpenAI-compatible API on :8000
 vllm serve openai/gpt-oss-120b
 ```
