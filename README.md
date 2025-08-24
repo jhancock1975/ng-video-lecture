@@ -17,7 +17,8 @@ uv pip install torch torchvision torchaudio --index-url https://download.pytorch
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available'; print('✓ PyTorch CUDA working')"
 uv pip install vllm
 # downloads weights on first run and serves OpenAI-compatible API on :8000
-vllm serve openai/gpt-oss-120b
+# had to add --gpu-mem... to avoid cache memory insufficient error
+vllm serve openai/gpt-oss-120b --gpu-memory-utilization 0.95
 ```
 
 ran out of disk on this one, though
