@@ -14,6 +14,7 @@ source $HOME/.local/bin/env
 
 # make a virtual environment
 uv venv ~/ven
+source ~/ven/bin/activate
 
 uv pip install --upgrade pip setuptools wheel jq nvtop
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
