@@ -19,14 +19,27 @@ uv pip install --upgrade pip setuptools wheel jq nvtop
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 # confirm pytorch
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available'; print('✓ PyTorch CUDA working')"
-uv pip install vllm
+uv pip install vllm huggingface_hub
 # downloads weights on first run and serves OpenAI-compatible API on :8000
+
+# 1) Pick a persistent place
+export MODEL_DIR=/root/models/gpt-oss-120b
+
+# 2) Download ONLY what vLLM needs (no original/**, no *.bin/*.pt)
+huggingface-cli download openai/gpt-oss-120b \
+  --local-dir "$MODEL_DIR" \
+  --local-dir-use-symlinks False \
+  --exclude "original/**" "*.bin" "*.pt"
+
+# 3) Run vLLM strictly from disk (no network pulls)
+export HF_HUB_OFFLINE=1
+python -m vllm.entrypoints.api_server \
+  --model "$MODEL_DIR"
+
 # had to add --gpu-mem... to avoid cache memory insufficient error
-vllm serve openai/gpt-oss-120b --gpu-memory-utilization 0.95
-```
-or
-```
-  vllm serve openai/gpt-oss-120b \
+
+HF_HUB_OFFLINE=1 \
+vllm serve "$MODEL_DIR" \
   --host 0.0.0.0 \
   --port 8000 \
   --api-key demo-key \
