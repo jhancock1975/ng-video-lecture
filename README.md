@@ -44,6 +44,7 @@ vllm serve "$MODEL_DIR" \
   --max-num-batched-tokens 1024 \
   --max-num-seqs 16 \
   --no-enable-prefix-caching
+
 ```
 It all worked.  I can expose the port by configuring docker options in the Vast.ai template for the instance running, but that port gets mapped to some random port.  
 In the Vast.ai console, I have to click on the IP address of the instance to get the port mapping. See the image below.
