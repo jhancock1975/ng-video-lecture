@@ -6,7 +6,7 @@ What has worked so far for installing vllm in Vast.ai, use A100 instance with 20
 ```
 add-apt-repository -y ppa:deadsnakes/ppa
 # install python3.11
-sudo apt install python3.11 python3.11-venv python3.11-dev -y
+sudo apt install python3.11 python3.11-venv python3.11-dev jq vim -y
 
 # install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -16,7 +16,7 @@ source $HOME/.local/bin/env
 uv venv ~/ven
 source ~/ven/bin/activate
 
-uv pip install --upgrade pip setuptools wheel jq vim
+uv pip install --upgrade pip setuptools wheel
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 # confirm pytorch
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available'; print('✓ PyTorch CUDA working')"
