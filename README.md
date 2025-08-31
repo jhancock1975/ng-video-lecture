@@ -32,19 +32,18 @@ huggingface-cli download openai/gpt-oss-120b \
   --local-dir-use-symlinks False \
   --exclude "original/**" "*.bin" "*.pt"
 
-# 3) Run vLLM strictly from disk (no network pulls)
-export HF_HUB_OFFLINE=1
-python -m vllm.entrypoints.api_server \
-  --model "$MODEL_DIR"
-
-# had to add --gpu-mem... to avoid cache memory insufficient error
-
+# asked ChatGPT to search the internet and give right arguments for serving gpt-oss-120b with VLLM
+# I was getting errors about not having enough memory, not enough space for cache needed.
 HF_HUB_OFFLINE=1 \
+VLLM_FLASH_ATTN_VERSION=2 \
 vllm serve "$MODEL_DIR" \
   --host 0.0.0.0 \
   --port 8000 \
   --api-key demo-key \
-  --gpu-memory-utilization 0.95
+  --max-model-len 131072 \
+  --max-num-batched-tokens 1024 \
+  --max-num-seqs 16 \
+  --no-enable-prefix-caching
 ```
 It all worked.  I can expose the port by configuring docker options in the Vast.ai template for the instance running, but that port gets mapped to some random port.  
 In the Vast.ai console, I have to click on the IP address of the instance to get the port mapping. See the image below.
