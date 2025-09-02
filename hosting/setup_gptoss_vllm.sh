@@ -30,8 +30,7 @@ echo "[3/9] Create & activate virtualenv"
 uv venv --python "python${PYTHON_VER}" "$HOME/ven"
 # shellcheck disable=SC1091
 source "$HOME/ven/bin/activate"
-python -V
-pip -V
+
 
 echo "[4/9] Install PyTorch (CUDA 12.1 wheels)"
 uv pip install --upgrade pip setuptools wheel
