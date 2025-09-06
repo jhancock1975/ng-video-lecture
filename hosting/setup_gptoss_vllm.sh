@@ -14,8 +14,8 @@ echo "[1/9] Apt setup & Python ${PYTHON_VER}"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -y
 sudo apt-get install -y software-properties-common curl ca-certificates gnupg lsb-release
-sudo add-apt-repository -y ppa:deadsnakes/ppa
-sudo apt-get update -y
+sudo add-apt-repository -y ppa:deadsnakes/ppa || true
+sudo apt-get update -y || true
 sudo apt-get install -y \
   "python${PYTHON_VER}" "python${PYTHON_VER}-venv" "python${PYTHON_VER}-dev" \
   jq vim
