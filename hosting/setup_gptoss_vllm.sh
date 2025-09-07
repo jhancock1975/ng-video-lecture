@@ -13,12 +13,12 @@ PYTHON_VER="3.11"
 echo "[1/9] Apt setup & Python ${PYTHON_VER}"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -y
-sudo apt-get install -y software-properties-common curl ca-certificates gnupg lsb-release
+sudo apt-get install -y software-properties-common curl ca-certificates gnupg lsb-release || true
 sudo add-apt-repository -y ppa:deadsnakes/ppa || true
 sudo apt-get update -y || true
 sudo apt-get install -y \
   "python${PYTHON_VER}" "python${PYTHON_VER}-venv" "python${PYTHON_VER}-dev" \
-  jq vim
+  jq vim || true
 
 echo "[2/9] Install uv (Python package manager)"
 curl -LsSf https://astral.sh/uv/install.sh | sh
